@@ -426,7 +426,7 @@ sequenceDiagram
 | `device`                   | string            | `/dev/video10`                                 | Path to the V4L2 video decoder device node.                                                          |
 | `force-aspect-ratio`       | bool              | `false`                                        | When enabled, applies aspect-ratio-correct scaling to the output window.                             |
 | `zoom-mode`                | int               | `ZOOM_NONE`                                    | Zoom/crop mode applied to the output: none, direct, normal, stretch, pillarbox, zoom, or global.     |
-| `low-memory-mode`          | bool              | `false`                                        | Reduces output buffer count to lower memory usage at the cost of potential throughput.               |
+| `low-memory`              | bool              | `false`                                        | Reduces output buffer count to lower memory usage at the cost of potential throughput.               |
 | `low-latency-mode`         | bool              | `false`                                        | Enables a low-latency output path that reduces decode-to-display delay.                              |
 | `immediate-output`         | bool              | `false`                                        | Bypasses presentation timestamp scheduling and outputs frames immediately upon decode.               |
 | `enable-texture`           | bool              | `false`                                        | Enables the `new-video-texture-callback` signal for graphics path texture delivery.                  |
