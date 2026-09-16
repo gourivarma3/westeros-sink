@@ -45,7 +45,7 @@ classDef VL stroke:#808080,fill:#F2F2F2,stroke-width:2px
 
 **Key Features & Responsibilities:**
 
-- **GStreamer Sink Integration**: Registers as a standard GStreamer element with a single always-on sink pad, accepting parsed H.264 and MPEG video streams, and implements the `GstBaseSink` lifecycle (`start`, `stop`, `render`, `preroll`, state change handling).
+- **GStreamer Sink Integration**: Registers as a standard GStreamer element with a single always-on sink pad, accepting the parsed compressed formats advertised by the detected decoder (for example H.264 and MPEG, with optional H.265/VP9/AV1/MJPEG support) plus supported raw video formats, and implements the `GstBaseSink` lifecycle (`start`, `stop`, `render`, `preroll`, state change handling).
 
 - **Wayland Surface Management**: Connects to the Westeros compositor as a Wayland client and creates a `wl_surface`. Registers with `wl_simple_shell` to control surface properties such as geometry, visibility, z-order, and opacity.
 
@@ -307,7 +307,7 @@ sequenceDiagram
 | ---------------------------- | -------------------- | ----------------------------------------------------------------------------- | ----------------------------------------- |
 | `first-video-frame-callback` | `SIGNAL_FIRSTFRAME`  | First decoded video frame is output by the decoder                            | Emitted once per playback session start   |
 | `buffer-underflow-callback`  | `SIGNAL_UNDERFLOW`   | V4L2 output queue becomes empty while stream is active                        | Indicates pipeline starvation             |
-| `new-video-texture-callback` | `SIGNAL_NEWTEXTURE`  | A new decoded frame is available as a graphics texture (graphics path active) | Carries texture handle and frame geometry |
+| `new-video-texture-callback` | `SIGNAL_NEWTEXTURE`  | A new decoded frame is available on the graphics path (when enabled) | Carries pixel format, dimensions, and per-plane file descriptors, lengths, strides, and data pointers |
 | `decode-error-callback`      | `SIGNAL_DECODEERROR` | V4L2 reports a decode error on the input stream                               | Carries error code and description        |
 | `timecode-callback`          | `SIGNAL_TIMECODE`    | A timecode embedded in the video stream matches the current presentation PTS  | Carries hours, minutes, seconds           |
 
